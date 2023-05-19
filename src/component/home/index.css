@@ -1,0 +1,46 @@
+.homeMain {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.homeTitulo {
+    font-size: 4rem;
+    color: #fff;
+    text-shadow: #ffffffb4 5px 5px 15px;
+    margin-bottom: 20px;
+}
+
+.jogosContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+}
+
+.jogos {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.carta-jogo {
+    border-radius: 23px;
+}
+
+.link-cartas {
+    text-decoration: none;
+    color: #fff;
+    padding-top: 20px;
+    font-size: 2rem;
+    font-weight: bold;
+    transition: .2s ease-in-out;
+}
+
+.link-cartas:hover {
+    text-shadow: #ffffffb4 0px 0px 20px;
+}
