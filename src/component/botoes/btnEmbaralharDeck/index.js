@@ -1,7 +1,7 @@
 import "../index.css"
 
-export const BotaoEmbaralharDeck = () => {
+export const BotaoEmbaralharDeck = ({embaralharDeck, deckId}) => {
     return (
-        <div className="btn">Embaralhar Deck</div>
+        <div className="btn" onClick={() => embaralharDeck(deckId)}>Embaralhar Deck</div>
     )
 }
