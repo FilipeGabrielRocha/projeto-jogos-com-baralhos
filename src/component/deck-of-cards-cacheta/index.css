@@ -6,3 +6,23 @@
     margin-bottom: 30px;
     font-size: 2.8rem;
 }
+
+.cartasCacheta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    gap: 30px;
+}
+
+.cartasCacheta img {
+    width: 135px;
+    transition: .3s ease-in-out;
+    border-radius: 5px;
+}
+
+.cartasCacheta img:hover {
+    transform: scale(1.6);
+    cursor: pointer;
+}
