@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 
 import "./index.css"
+
 import { BotaoPaginaInicial } from "../botoes/btnPaginaInicial";
 import { BotaoEmbaralharDeck } from "../botoes/btnEmbaralharDeck";
 
@@ -20,13 +21,22 @@ async function reshuffleCards(deckId) {
   return await response.json();
 }
 
-const testeEmbaralharDeck = async (deckId) => {
-  console.log(deckId);
-  return await reshuffleCards(deckId);
-}
-
 const posicoesDoBaralho = (min, max) => {
   return Math.floor(Math.random() * (max - min) + min)
+}
+
+
+const criandoMaoDoJogo = () => {
+  const posicoes = []
+  let a = 0
+      while (a < 3){
+        let item = posicoesDoBaralho(0, 52)
+        if (posicoes.indexOf(item) === -1){
+          posicoes.push(item)
+          a++
+        }
+      }
+  return posicoes
 }
 
 export const DeckOfCardsTruco = () => {
@@ -41,29 +51,43 @@ export const DeckOfCardsTruco = () => {
     const fetchData = async () => {
       const deckId = await createDeck();
       const data = await getCards(deckId);
+      const posicoes = [criandoMaoDoJogo()]
       console.log(data);
-      // const embaralhar = await reshuffleCards(deckId);
-      const posicoes = []
-
-      let a = 0
-      while (a < 3){
-        let posicaoNumero = posicoesDoBaralho(0, 52)
-        posicoes.push(posicaoNumero)
-        a++
-        if (posicoes.indexOf(posicaoNumero) === -1){
-          console.log('igual ' + posicaoNumero);
-        }
-      }
+      console.log(posicoes[0]);
+      
 
       setDeck({
         cards: data.cards,
-        trucoCards: [data.cards[posicoes[0]], data.cards[posicoes[1]], data.cards[posicoes[2]]],
+        trucoCards: [
+          data.cards[posicoes[0][0]], 
+          data.cards[posicoes[0][1]], 
+          data.cards[posicoes[0][2]]
+        ],
         deck_id: data.deck_id
       });
     };
 
     fetchData();
   }, []);
+
+  const embaralharDeck = async (deckId) => {
+    await reshuffleCards(deckId);
+    const data = await getCards(deckId)
+    const posicoes = [criandoMaoDoJogo()]
+    console.log(data);
+    console.log(posicoes[0]);
+    setDeck({
+      cards: data.cards,
+      deck_id: data.deck_id,
+      trucoCards: [
+        data.cards[posicoes[0][0]], 
+        data.cards[posicoes[0][1]], 
+        data.cards[posicoes[0][2]]
+      ],
+    })
+  }
+
+  // tive q criar uma função para subscrever o estado inicial sem criar outro deckId
 
   return (
     <section className="sectionContainerTruco">
@@ -81,7 +105,7 @@ export const DeckOfCardsTruco = () => {
       </ul>
 
       <div className="btnContainer">
-        <BotaoEmbaralharDeck embaralharDeck={testeEmbaralharDeck} deckId={deck.deck_id} />
+        <BotaoEmbaralharDeck embaralharDeck={embaralharDeck} deckId={deck.deck_id} />
         <BotaoPaginaInicial />
       </div>
 
